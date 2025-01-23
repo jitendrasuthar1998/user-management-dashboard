@@ -7,6 +7,9 @@ import { addUser, editUser, fetchUsers } from "./store/usersSlice";
 import { AppDispatch, RootState } from "./store/store";
 import { User, UserFormData } from "./types/user";
 import UserModal from "./components/UserModal";
+import DeleteModal from "./components/DeleteModal";
+import { toast, ToastContainer } from "react-toastify";
+import "react-toastify/dist/ReactToastify.css";
 
 function App() {
   const dispatch = useDispatch<AppDispatch>();
@@ -17,6 +20,8 @@ function App() {
   const [showModal, setShowModal] = useState(false);
   const [selectedUser, setSelectedUser] = useState<User | undefined>(undefined);
   const [modalTitle, setModalTitle] = useState("");
+  const [showDeleteModal, setShowDeleteModal] = useState(false);
+  const [userToDelete, setUserToDelete] = useState<User | undefined>(undefined);
 
   useEffect(() => {
     if (status === "idle") {
@@ -43,6 +48,11 @@ function App() {
       dispatch(addUser({ ...data, id: users.length + 1 }));
     }
     setShowModal(false);
+  };
+
+  const handleDeleteConfirmation = (user: User) => {
+    setUserToDelete(user);
+    setShowDeleteModal(true);
   };
 
   if (status === "loading") {
@@ -99,7 +109,11 @@ function App() {
                 >
                   <Pencil size={16} />
                 </Button>
-                <Button variant="danger" size="sm">
+                <Button
+                  variant="danger"
+                  size="sm"
+                  onClick={() => handleDeleteConfirmation(user)}
+                >
                   <Trash2 size={16} />
                 </Button>
               </td>
@@ -115,6 +129,13 @@ function App() {
         user={selectedUser}
         title={modalTitle}
       />
+      <DeleteModal
+        show={showDeleteModal}
+        onHide={() => setShowDeleteModal(false)}
+        user={userToDelete}
+        onDeleteSuccess={() => toast.success("User deleted Successfully!")}
+      />
+      <ToastContainer position="top-center" autoClose={3000} />
     </Container>
   );
 }

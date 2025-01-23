@@ -79,7 +79,7 @@ const UserModal: React.FC<UserModalProps> = ({
   };
 
   return (
-    <Modal show={show} onHide={onHide}>
+    <Modal show={show} onHide={onHide} centered>
       <Modal.Header closeButton>
         <Modal.Title>{title}</Modal.Title>
       </Modal.Header>
@@ -102,6 +102,7 @@ const UserModal: React.FC<UserModalProps> = ({
               name="email"
               value={formData.email}
               onChange={handleChange}
+              disabled={title == "Edit User"}
               required
             />
           </Form.Group>
