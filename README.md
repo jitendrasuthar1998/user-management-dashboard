@@ -19,7 +19,7 @@ The app is deployed on **Netlify** and is designed to provide a smooth user expe
 
 ## Demo
 
-You can view the live demo of the app on [Netlify](https://user-management-dashboard-by-jitendrasuthar1998.netlify.app/).
+You can see the live demo of the app on [Netlify](https://user-management-dashboard-by-jitendrasuthar1998.netlify.app/).
 
 ## Tech Stack
 
